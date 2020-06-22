@@ -16,4 +16,10 @@ IF NOT EXISTS challenge.transactions
 (`transaction_id`),
   UNIQUE INDEX `transaction_id_UNIQUE`
 (`transaction_id` ASC) VISIBLE)
-ENGINE = InnoDB
+ENGINE = InnoDB;
+CREATE TABLE `challenge`.`user` (
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `sum` DOUBLE NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE);
+

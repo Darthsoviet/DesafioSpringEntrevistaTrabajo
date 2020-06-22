@@ -2,6 +2,7 @@ package challenge.backend.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import challenge.backend.models.Transaction;
+import challenge.backend.models.TransactionSum;
+import challenge.backend.models.Week;
 import challenge.backend.services.TransactionService;
 
 @RestController
+
 public class TransactionController {
 
    @Autowired
@@ -40,6 +44,8 @@ public class TransactionController {
       return ResponseEntity.status(HttpStatus.CREATED).body(transaction);
    }
 
+   
+
    // ---------------------------------------------GET--------------------------------
 
    @GetMapping(path = "api/v1/transactions/transaction/{transaction_id}/{user_id}")
@@ -54,7 +60,12 @@ public class TransactionController {
       
    }
 
+   @GetMapping(path="api/v1/transactions/sum/{user_id}")
+   public ResponseEntity<TransactionSum> sumTransactions(@PathVariable(name = "user_id") int userId){
+      TransactionSum sum=transactionService.sumTransaction(userId);
+      return ResponseEntity.ok(sum);
 
+   }
 
    @GetMapping(path = "api/v1/transactions/{id_transaction}")
 
@@ -66,4 +77,17 @@ public class TransactionController {
       return ResponseEntity.ok(transactions);
    }
 
+   @GetMapping(path = "api/v1/transactions/week/{user_id}")
+   public ResponseEntity<List<Week>> transactionReportService(@PathVariable(name="user_id",required=true) int userId){
+     List<Week> weeks= transactionService.transactionReportService(userId);
+
+
+      return ResponseEntity.ok(weeks);
+   }
+
+   @GetMapping(path = "api/v1/transactions/random")
+   public ResponseEntity<Transaction> randomSingleTransaction(){
+      Transaction tran=transactionService.randomSingleTransaction();
+      return ResponseEntity.ok(tran);
+   }
 }
