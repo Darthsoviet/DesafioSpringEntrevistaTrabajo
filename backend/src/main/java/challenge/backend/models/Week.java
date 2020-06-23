@@ -14,6 +14,7 @@ public class Week {
    private int quantity;
    private double amount;
    private double totalAmount;
+   private int userId;
 
    
   

@@ -1,12 +1,15 @@
 package challenge.backend.services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import challenge.backend.data.TransactionDao;
 import challenge.backend.models.Transaction;
@@ -33,11 +36,11 @@ public class TransactionService {
 
    }
 
-   public Transaction showTransaction(int transactionId, int userId) {
+   public Transaction showTransaction(int transactionId, int userId)throws Exception {
       Transaction transactionDto = transactionDaoI.findById(transactionId).get();// getting model from optional
       if (transactionDto.getUserId() != userId)
-         return null;
-
+         throw new Exception("Transaction not found");
+   
       return transactionDto;
 
    }
@@ -59,17 +62,26 @@ public class TransactionService {
     * @param userId numeric unteger id from user
     * @return list of transactions
     */
-   public List<Transaction> listTransactions(int userId) {
+   public List<Transaction> listTransactions(int userId)throws Exception {
       List<Transaction> transactions = transactionDaoI.findByUserId(userId);
+      if(transactions.size()==0){
+         throw new Exception("user doesnt exist or has not transactions yet");
+      }
 
       return orderByDate(transactions);
 
    }
 
-   public TransactionSum sumTransaction(int userId) {
+   public TransactionSum sumTransaction(int userId)throws Exception {
 
       List<Transaction> transactions = transactionDaoI.findByUserId(userId);
+      if(transactions.size()==0){
+         throw new Exception("the user doesnt exist or has no transactions yet");
+      }
       double sum=transactions.stream().reduce(0.0, ( sub,actual)->sub+actual.getAmount(),Double::sum);
+      DecimalFormat numberFormat = new DecimalFormat("#.00");
+   
+      sum=Double.parseDouble(numberFormat.format(sum));
       return new TransactionSum(sum,userId);
 
 
@@ -88,13 +100,12 @@ public class TransactionService {
          tran = transactions.get(i);
 
          if (week.getWeekStart() == null) {// if the week its new
-
-      
             week.setWeekStart(tran.getDate());
             week.setWeekEnd(tran.getDate());
             week.setAmount(tran.getAmount());
             week.setQuantity(1);
             week.setTotalAmount(auxAcumulator);
+            week.setUserId(userId);
             weeks.add(week);//adds the new week into the array
             weekIndex++; //increases pointer for the array
 
