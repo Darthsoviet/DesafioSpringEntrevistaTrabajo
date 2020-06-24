@@ -1,5 +1,6 @@
 package challenge.backend.models;
 
+import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
@@ -18,7 +19,17 @@ public class Week {
 
    
   
-   
+   public void setAmount(double amount){
+      DecimalFormat df= new DecimalFormat("#.00");
+      this.amount= Double.parseDouble( df.format(amount));
+
+   }
+
+   public void setTotalAmount(double totalAmount){
+      DecimalFormat df= new DecimalFormat("#.00");
+      this.totalAmount= Double.parseDouble( df.format(totalAmount));
+
+   }
    public void setWeekStart(LocalDate date,DayOfWeek target) {
      date= this.serachCloseWeekDay( date);
       this.weekStart = date.toString() + " " + date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH);

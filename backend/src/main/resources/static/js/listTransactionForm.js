@@ -1,8 +1,8 @@
+
 let form2 = '#list-transaction-form'
 $('#listForm').click((e) => {
    e.preventDefault();
-
-   $(form2).toggleClass('hidden');
+   $(form2).toggleClass('visible');
 
 })
 
@@ -13,10 +13,17 @@ $(form2).submit(function (e) {
    fetch(`http://localhost:8080/api/v1/transactions/${userId}`, {
       method: "GET"
    }).then(res => {
-      if (res.status <=200 || res.status<300) {
+      if (res.status <=200) {
 
          res.json().then((list) => {
             $('.container ul *').remove('*');
+            if(window.innerWidth<700){
+               $('.container ul').css({"grid-template-columns":"repeat(1,1fr)"});
+
+            }else{
+               $('.container ul').css({"grid-template-columns":"repeat(4,1fr)"});
+            }
+            
 
             let elementList = list.map((data) => {
 
@@ -38,10 +45,14 @@ $(form2).submit(function (e) {
          });
 
       } else {
-         res.text().then(str => {
+         res.text().then(str=>{
             $('.container ul *').remove('*');
+            $('.container ul').css({
+               "grid-template-columns": "1fr"
+            });
             $('.container ul').append(`<div class="card-err"><h1 >${str}</h1></div>`);
-         })
+         });
+        
 
 
       }

@@ -6,30 +6,32 @@
    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
    <title>Challenge Rest</title>
    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css'>
-   <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css'> -->
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css" integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css'> 
    <link rel='stylesheet' href='./css/index.css'>
    <link rel='stylesheet' href='./css/modForm.css'>
+   <link rel="stylesheet" href="./css/card.css">
 </head>
  
 <body>
    <div class='form-container post'>
-      <form method='POST' id='postForm'>
+      <form method='POST' id='postForm' class="needs-validation" novalidate>
          <button type='button' onclick='quitModalForm()' class='form-cancel'>X</button>
-         <label for='user_id'>User id:</label>
-         <input type='number' min='1' step='1' required name='user_id' id='user_id'>
-         <label for='amount'>Amount:</label>
-         <input required type='number' step='0.10' name='amount' id='amount' placeholder='Amount'>
-         <label for='description'>Description:</label>
-         <input type='text' required name='description' id='description'>
+         <label  for='user_id'>User id:</label>
+         <input placeholder="User ID" class="form-control" type='number' min='1' step='1' required name='user_id' id='user_id'>
+         <label  for='amount'>Amount:</label>
+         <input class="form-control" required type='number' step='0.10' name='amount' id='amount' placeholder='Amount'>
+         <label  for='description'>Description:</label>
+         <input placeholder="Description" class="form-control" type='text' required name='description' id='description'>
          <label for='date'>Date:</label>
-         <input type='date' name='date' id='date' required>
+         <input class="form-control" type='date' name='date' id='date' required>
          <button type='submit' class='btn btn-primary'>send</button>
          <div id='postM'>status: </div>
       </form>
    </div>
 
 
-   <header>
+   <header id="begin" class="header">
       <h1>API Avocado Challenge</h1>
    </header>
    <main>
@@ -38,36 +40,48 @@
 
 
             <li>
-               <button id='addForm' class='btn'>Add Transaction</button>
+               <button id='addForm' ><span>Add Transaction</span>  <i class="fas fa-pen"></i></button>
             </li>
             <li>
-               <button id='showForm' class='btn'>Show Transaction</button>
+               <button id='showForm' ><span>Transaction</span>  <i class="fas fa-search"></i></button>
                <form id="show-transaction-form" class=" hidden" method="GET">
-                  <label for="#user_id">user id:</label>
-                  <input name="user_id" id="user_id" type="number" min="1" required step="1">
-                  <label for="#user_id">transaction id:</label>
-                  <input name="transaction_id" id="transaction_id" min="1"  type="number" required step="1" >
-                  <button class="btn btn-primary">Send</button>
+                  <input  placeholder="user id" name="user_id" id="user_id" type="number" min="1" required step="1">
+                  <input placeholder="transaction id" name="transaction_id" id="transaction_id" min="1"  type="number" required step="1" >
+                  <button class="btn btn-outline-warning">Send</button>
                </form>
             </li>
             <li>
-               <button id='listForm' class='btn'>List Transactions</button>
+               <button id='listForm'><span>List Transactions</span>  <i class="fas fa-list"></i></button>
                <form id="list-transaction-form" class=" hidden" method="GET">
-                  <label for="#user_id">user id:</label>
-                  <input name="user_id" id="user_id" type="number" min="1" required step="1">
-                  <button class="btn btn-primary">Send</button>
+                  <input placeholder="user id" name="user_id" id="user_id" type="number" min="1" required step="1">
+                  <button class="btn btn-outline-warning">Send</button>
                </form>
             </li>
             <li>
-               <button id='sumForm' class='btn'>Sum Transactions</button>
+               <button id='sumForm'><span>Sum Transactions</span> <i class="fas fa-chart-line"></i></button>
                <form id="sum-transaction-form" class=" hidden">
-                  <label for="#user_id">user id:</label>
-                  <input name="user_id" id="user_id" type="number" min="1" required step="1">
-                  <button class="btn btn-primary">Send</button>
+                  <input placeholder="user id" name="user_id" id="user_id" type="number" min="1" required step="1">
+                  <button class="btn btn-outline-warning">Send</button>
                </form>
+            </li>
+            <li>
+               <button id='lsForm' ><span>List Transactions Service</span> <i class="fas fa-calendar-alt"></i></button>
+               <form id="ls-transaction-form" class=" hidden">
+                  <input placeholder="user id" name="user_id" id="user_id" type="number" min="1" required step="1">
+                  <button class="btn btn-outline-warning">Send</button>
+               </form>
+            </li>
+            <li>
+               <button  id='randomForm' ><span>Random Transaction</span><i class="fas fa-random"></i></button>
+               
+            </li>
+            <li>
+               <a class="anchor" href="#begin"><i class="fas fa-angle-double-up"></i></a>
             </li>
          </ul>
       </nav>
+
+      <!-- container-->
       <section class='container'>
          <ul></ul>
       </section>
@@ -80,7 +94,28 @@
 <script src='./js/modalFrom.js'></script>
 <script src="js/showTransactionForm.js"></script>
 <script src="js/listTransactionForm.js"></script>
+<script src="js/lsTransactionForm.js"></script>
 <script src="js/sumTransactionForm.js"></script>
+<script src="js/randomTransactionForm.js"></script>
 
-
+<script>
+   // Example starter JavaScript for disabling form submissions if there are invalid fields
+   (function() {
+     'use strict';
+     window.addEventListener('load', function() {
+       // Fetch all the forms we want to apply custom Bootstrap validation styles to
+       var forms = document.getElementsByClassName('needs-validation');
+       // Loop over them and prevent submission
+       var validation = Array.prototype.filter.call(forms, function(form) {
+         form.addEventListener('submit', function(event) {
+           if (form.checkValidity() === false) {
+             event.preventDefault();
+             event.stopPropagation();
+           }
+           form.classList.add('was-validated');
+         }, false);
+       });
+     }, false);
+   })();
+   </script>
 </html>

@@ -6,8 +6,16 @@ label{
    color:white;
 }
 
+.anchor{
+   position: fixed;
+   bottom: 3em;
+   font-size: xx-large;
+}
 .hidden{
    display: none;
+}
+.visible{
+   display: block;
 }
 body{
    background-color: #191919;
@@ -16,7 +24,7 @@ body{
 header{
    height: 8vh;
    display: block;
-   background-color: #222222;
+   background-color: goldenrod;
    color: white;
    
 }
@@ -30,6 +38,7 @@ main{
    min-height: 92vh;
 
 }
+
 main nav{
    display: flex;
    width: 15vw;
@@ -49,7 +58,26 @@ main nav ul li{
    flex-direction: column;
    align-items: center;
    align-content: center;
+   justify-content: stretch;
 }
+main nav ul li button{
+   border: none;
+   margin: 0;
+   background-color: transparent;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: flex-end;
+   padding: 0.5em 1em;
+   width: 100%;
+   height: auto;
+   color: white;
+}
+main nav ul li button *{
+   margin:  auto 10%;
+}
+
+
 main nav ul li form{
    overflow: hidden;
    display: flex;
@@ -57,9 +85,20 @@ main nav ul li form{
    flex-direction: column;
 }
 main nav ul li form input{
+   
+   text-align: center;
+   background-color: transparent;
+   outline:  none;
+   border: none;
+   border-bottom: 2px solid goldenrod;
+   color: white;
    display: block;
-   margin: 0 auto;
+   margin: 2rem auto;
    width: 90%;
+
+}
+main nav ul li form input::placeholder{
+   text-align: center;
 }
 main nav ul li form label{
    text-align: center;
@@ -67,67 +106,46 @@ main nav ul li form label{
    margin: 0 auto;
    width: 90%;
 }
-main nav ul li form button{
-   padding: 0.5rem;
-   margin: 1rem auto;
+main nav ul li form .btn{
+   align-self: center;
+   width: 100%;
 }
-main nav ul li .btn{
-  
-   width: auto;
-   color: white;
-}
+
 main nav ul li .btn:hover{
    color: white;
 }
-
+main section{
+   padding: 3%
+}
 main section ul{
-   overflow-x: hidden;
    padding: 0;
    display: grid;
    grid-template-columns: repeat(4,1fr);
-   grid-auto-rows: minmax(auto,300px);
-   gap: 1rem;
+   grid-auto-rows: 300px;
+   gap: 3rem;
 }
 
-.card{
-   overflow: visible;
-   background: #323232;
-   height: auto;
-   color: white;
-   box-shadow: 3px 3px 3px black;
-}
-.card *{
-   overflow: visible;
 
-   background: #323232;
+@media screen and (max-width:700px){
+   #begin h1{
+      font-size: large;
+   }
+   main nav{
+      width: auto;
+   }
+   main nav li span{
+      display: none;
+
+   }
+   main section ul{
+      padding: 0;
+      display: grid;
+      grid-auto-rows: auto;
+
+      grid-template-columns: repeat(1,1fr);
+      gap: 3rem;
+   }
+    
+   }
 
 
-}
-.card-err{
-   text-align: center;
-   background-color: #323232;
-   border-radius: 5px;
-   border: 2px solid crimson;
-   position: absolute;
-   top:40%;
-   right: 28%;
-   
-}
-.card-err h1{
-   color: crimson;
-   
-}
-.card-sum{
-   text-align: center;
-   background-color: #323232;
-   border-radius: 5px;
-   border: 2px solid green;
-   position: absolute;
-   top:40%;
-   right: 28%;
-   
-}
-.card-sum h2{
-   color: green;
-   
-}

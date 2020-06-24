@@ -30,6 +30,8 @@ public class TransactionService {
     */
    public Transaction AddTransaction(Transaction transaction) {
 
+      DecimalFormat decimalFormat = new DecimalFormat("#.00");
+      transaction.setAmount(Double.parseDouble(decimalFormat.format(transaction.getAmount()))); 
       transaction = transactionDaoI.save(transaction);// saving model
 
       return transaction;
@@ -65,7 +67,7 @@ public class TransactionService {
    public List<Transaction> listTransactions(int userId)throws Exception {
       List<Transaction> transactions = transactionDaoI.findByUserId(userId);
       if(transactions.size()==0){
-         throw new Exception("user doesnt exist or has not transactions yet");
+         throw new Exception("user doesnt exist or havent transactions");
       }
 
       return orderByDate(transactions);
@@ -76,7 +78,7 @@ public class TransactionService {
 
       List<Transaction> transactions = transactionDaoI.findByUserId(userId);
       if(transactions.size()==0){
-         throw new Exception("the user doesnt exist or has no transactions yet");
+         throw new Exception("the user doesnt exist");
       }
       double sum=transactions.stream().reduce(0.0, ( sub,actual)->sub+actual.getAmount(),Double::sum);
       DecimalFormat numberFormat = new DecimalFormat("#.00");
@@ -94,7 +96,6 @@ public class TransactionService {
       List<Week> weeks = new ArrayList<Week>();
       double auxAcumulator = 0;
       Transaction tran;
-      System.out.println("total: "+transactions.size());
       int weekIndex=-1;
       for (int i = 0; i < transactions.size(); i++) {
          tran = transactions.get(i);

@@ -1,0 +1,113 @@
+.list-group{
+   height: 100%;
+}
+
+.card{
+   position: relative;
+   overflow: visible;
+   background: #323232;
+   height: auto;
+   color: white;
+   width: 100%;
+
+}
+.card::after{
+   z-index: -4;
+   content: " ";
+   position: absolute;
+   border-radius: 5px;
+   background: linear-gradient(220deg,#2536fd,goldenrod);
+   top: -2px;
+   right: -2px;
+   left: -2px;
+   bottom: -2px;
+
+}
+.card:hover{
+   transform: translateY(-1%) 
+
+}
+.card *{
+   overflow: visible;
+
+   background: #323232;
+
+
+}
+.card-err{
+   padding: 0.2em;
+   margin: auto;
+   text-align: center;
+   background-color: #323232;
+   border-radius: 5px;
+   border: 2px solid crimson;
+   
+   
+}
+.card-err h1{
+   color: crimson;
+   
+}
+.card-sum{
+   margin: 0 auto;
+   text-align: center;
+   background-color: #222222;
+   width: 60%;
+   border-radius: 5px;
+   border: 2px solid greenyellow;
+   
+   
+}
+.card-sum h2{
+   color: greenyellow;
+   
+}
+.week-card{
+   color: white;
+   display: flex;
+   flex-direction: column;
+   background-color: #323232;
+}
+div .card-head{
+   background-color: #323232;
+
+   display: grid;
+   grid-template-columns: 1fr 2fr 2fr;
+}
+
+
+
+@media screen and (max-width:700){
+   .card-sum{
+      text-align: center;
+      background-color: #222222;
+      border-radius: 5px;
+      border: 2px solid yellowgreen;
+      position: absolute;
+      top:40%;
+      right: 15%;
+      
+   }
+   .card-sum h2{
+
+      color: yellowgreen;
+      font-size: large;
+      
+   }
+   .card-err{
+      padding: 0.2em;
+      margin: auto;
+      text-align: center;
+      background-color: #323232;
+      border-radius: 5px;
+      border: 2px solid crimson;
+      position: absolute;
+      top:40%;
+      right: 5%;
+      
+   }
+   .card-err h1{
+      font-size: medium;
+      color: crimson;
+
+}}
